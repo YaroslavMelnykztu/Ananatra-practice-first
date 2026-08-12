@@ -31,8 +31,8 @@ const personalMovieDB = {
 function rememberMyFilms(){
     for(let i = 0; i < numberOfFilms; i++)
     {
-        const lastFilm = prompt("Який один з останніх переглянутих фільмів?", "");
-        const gradeOfFilm = +prompt("Яку оцінку фільму Ви дасте?", "5.0");
+        const lastFilm = prompt("Який один з останніх переглянутих фільмів?", "").trim();
+        const gradeOfFilm = +prompt("Яку оцінку фільму Ви дасте?", "5.0").trim();
         if (lastFilm != null && gradeOfFilm != null && lastFilm != '' && gradeOfFilm != '' && lastFilm.length < 50)
         {
             personalMovieDB.movies[lastFilm] = gradeOfFilm;
