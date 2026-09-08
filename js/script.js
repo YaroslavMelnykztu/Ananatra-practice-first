@@ -1,78 +1,90 @@
-let numberOfFilms;
+const personalMovieDB = {
+    count: 0,
+    movies: {},
+    actors: {},
+    genres: [],
+    privat: false,
 
-function start(){
-    while(true){
-        numberOfFilms = prompt("Скільки фільмів Ви вже переглянули?", "");
+    start: function(){
+        while(true){
+            personalMovieDB.count = prompt("Скільки фільмів Ви вже переглянули?", "");
 
-        if(numberOfFilms == null || numberOfFilms == '' || isNaN(numberOfFilms)){
-            continue;
+            if(personalMovieDB.count == null || personalMovieDB.count == '' || isNaN(personalMovieDB.count)){
+                continue;
+            } else {
+                personalMovieDB.count = +personalMovieDB.count;
+                break;
+            }
+        }
+    },
+
+    rememberMyFilms: function(){
+        for(let i = 0; i < personalMovieDB.count; i++)
+        {
+            const lastFilm = prompt("Який один з останніх переглянутих фільмів?", "").trim();
+            const gradeOfFilm = +prompt("Яку оцінку фільму Ви дасте?", "5.0").trim();
+            if (lastFilm != null && gradeOfFilm != null && lastFilm != '' && gradeOfFilm != '' && lastFilm.length < 50)
+            {
+                personalMovieDB.movies[lastFilm] = gradeOfFilm;
+                console.log('Done');
+            } else{
+                i--;
+                console.log('Error');
+            }
+        }
+    },
+
+    detectLevel: function(){
+        if (personalMovieDB.count < 10)
+        console.log('Ви переглянули досить мало фільмів!');
+        else if (personalMovieDB.count < 30)
+            console.log('Ви класичний глядач!');
+        else 
+            console.log('Ви переглянули досить багато фільмів!');
+    },
+
+    showMyDB: function(){
+            if (!personalMovieDB.privat){
+            console.log(personalMovieDB);
+        }
+    },
+
+    writeYourGenres: function(){
+        let genre;
+        for (let i = 0; i < 3; i++){
+            genre = prompt(`Ваш улюблений жанр номер ${i+1}:`, "");
+            if (genre === null || genre === ''){
+                i--;
+                continue;
+            } else {
+                personalMovieDB.genres[i] = genre;
+            }
+        }
+        personalMovieDB.genres.forEach(function(item, i){
+            console.log(`Улюблений жанр ${i+1} - це ${item} `);
+        })
+    },
+
+    toggleVisibleMyDB: function(){
+        if(personalMovieDB.privat){
+            personalMovieDB.privat = false;
         } else {
-            numberOfFilms = +numberOfFilms;
-            break;
+            personalMovieDB.privat = true;
         }
     }
-}
-
-
-start();
-
-const personalMovieDB = {
-    count: numberOfFilms,
-    movies: objMovies = {
-
-    },
-    actors: objActors = {
-
-    },
-    genres: arrGenres = [],
-    privat: false 
+    
 };
 
-function rememberMyFilms(){
-    for(let i = 0; i < numberOfFilms; i++)
-    {
-        const lastFilm = prompt("Який один з останніх переглянутих фільмів?", "").trim();
-        const gradeOfFilm = +prompt("Яку оцінку фільму Ви дасте?", "5.0").trim();
-        if (lastFilm != null && gradeOfFilm != null && lastFilm != '' && gradeOfFilm != '' && lastFilm.length < 50)
-        {
-            personalMovieDB.movies[lastFilm] = gradeOfFilm;
-            console.log('Done');
-        } else{
-            i--;
-            console.log('Error');
-        }
-    }
-}
+// personalMovieDB.start();
 
-rememberMyFilms();
+// personalMovieDB.rememberMyFilms();
 
-function detectLevel(){
-    if (personalMovieDB.count < 10)
-        console.log('Ви переглянули досить мало фільмів!');
-    else if (personalMovieDB.count < 30)
-        console.log('Ви класичний глядач!');
-    else 
-        console.log('Ви переглянули досить багато фільмів!');
-}
+// personalMovieDB.detectLevel();
 
-detectLevel();
+// personalMovieDB.showMyDB(personalMovieDB.privat);
 
-function showMyDB(hidden){
-    if (!hidden){
-        console.log(personalMovieDB);
-    }
-}
+// personalMovieDB.writeYourGenres();
 
-showMyDB(personalMovieDB.privat);
+// personalMovieDB.toggleVisibleMyDB();
 
-let genres = []; // чи можна const
-
-function writeYourGenres(){
-    let genre;
-    for (let i = 0; i < 3; i++){
-        genre = prompt(`Ваш улюблений жанр номер ${i+1}:`, "");
-        if (genre != null && genre != ''){
-            genres[i] = genre;
-        }
-    }
-}
+// personalMovieDB.showMyDB(personalMovieDB.privat);
